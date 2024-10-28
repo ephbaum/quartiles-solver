@@ -20,7 +20,7 @@ Quartiles Solver is built with Deno and Fresh. The application allows users to i
 ├── components/
 │   └── ResultsContainer.tsx
 ├── islands/
-│   └── MainInterface.tsx
+│   └── QuartileSolver.tsx
 ├── routes/
 │   ├── _404.tsx
 │   ├── _app.tsx
