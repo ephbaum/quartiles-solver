@@ -2,7 +2,7 @@ import { h as _h } from "preact";
 import { useState } from "preact/hooks";
 import ResultsContainer from "../components/ResultsContainer.tsx";
 
-export default function MainInterface({ results: initialResults, error: _error }: { results?: string[], error?: string }) {
+export default function QuartileSolver({ results: initialResults, error: _error }: { results?: string[], error?: string }) {
   const [results, setResults] = useState(initialResults || []);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(_error || '');

@@ -1,6 +1,6 @@
 import { h as _h } from "preact";
 import { FreshContext, PageProps as _PageProps } from "$fresh/server.ts";
-import MainInterface from "../islands/MainInterface.tsx";
+import QuartileSolver from "../islands/QuartileSolver.tsx";
 
 // Function to generate permutations
 function generatePermutations(parts: string[], maxLength: number): string[] {
@@ -76,5 +76,5 @@ export const handler = async (req: Request, ctx: FreshContext) => {
 
 export default function Page(props: _PageProps) {
   const { results, error } = props.data ?? { results: [], error: null };
-  return <MainInterface results={results} error={error} />;
+  return <QuartileSolver results={results} error={error} />;
 }
