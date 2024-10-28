@@ -15,7 +15,7 @@ This is based on a simple js solver [gist](https://gist.github.com/ephbaum/b697f
 
 ## Why?
 
-That's a good question -- I don't really even use this, but it's a fun way to play around with Deno and Fresh :laughing:
+That's a good question -- I don't really even use this, but it seemed like a fun way to play around with Deno and Fresh :laughing:
 
 
 ### Usage
