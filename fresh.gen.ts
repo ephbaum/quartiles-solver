@@ -6,7 +6,7 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $about from "./routes/about.tsx";
 import * as $index from "./routes/index.tsx";
-import * as $MainInterface from "./islands/MainInterface.tsx";
+import * as $QuartileSolver from "./islands/QuartileSolver.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -17,7 +17,7 @@ const manifest = {
     "./routes/index.tsx": $index,
   },
   islands: {
-    "./islands/MainInterface.tsx": $MainInterface,
+    "./islands/QuartileSolver.tsx": $QuartileSolver,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
