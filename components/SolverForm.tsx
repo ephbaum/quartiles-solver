@@ -2,7 +2,7 @@ import { h as _h } from "preact";
 import { useState } from "preact/hooks";
 
 interface SolverFormProps {
-  onSubmit: (formData: FormData) => Promise<void>;
+  onSubmit: (jsonData: any) => Promise<void>;
   isLoading: boolean;
 }
 
@@ -13,9 +13,11 @@ export default function SolverForm({ onSubmit, isLoading }: SolverFormProps) {
     event.preventDefault();
     setErrorMessage('');
     const formData = new FormData(event.target as HTMLFormElement);
+    const jsonData = Object.fromEntries(formData.entries());
+
     try {
-      await onSubmit(formData);
-    } catch (error) {
+      await onSubmit(jsonData);
+    } catch (_error) {
       setErrorMessage('An error occurred while processing your request.');
     }
   };
@@ -31,7 +33,7 @@ export default function SolverForm({ onSubmit, isLoading }: SolverFormProps) {
   return (
     <div id="solver-container" class="bg-white p-4 rounded shadow-md w-auto max-w-xl mb-4">
       <h1 class="text-2xl font-bold mb-4 text-center">Quartiles Solver</h1>
-      <form method="POST" action="/" enctype="multipart/form-data" class="space-y-4" onSubmit={handleSubmit}>
+      <form class="space-y-4" onSubmit={handleSubmit}>
         <div class="flex flex-col items-center space-y-2">
           {commonWordParts.map((row, rowIndex) => (
             <div key={rowIndex} class="flex space-x-2">

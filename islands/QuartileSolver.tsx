@@ -8,13 +8,16 @@ export default function QuartileSolver({ results: initialResults, error: _error 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(_error || '');
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (jsonData: any) => {
     setIsLoading(true);
     setErrorMessage('');
     try {
-      const response = await fetch("/", {
+      const response = await fetch("/api/solve", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsonData),
       });
       const data = await response.json();
       setResults(data.results);
