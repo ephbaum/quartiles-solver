@@ -28,7 +28,7 @@ jobs:
         run: deno lint
 
       - name: Check types
-        run: deno check **/*.ts && deno check **/*.tsx
+        run: deno check --allow-import **/*.ts && deno check --allow-import **/*.tsx
 
       - name: Run tests
         run: deno test --allow-net --allow-read --allow-import
