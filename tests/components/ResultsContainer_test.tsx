@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h as _h } from "preact";
 import { render } from "@testing-library/preact";
 import ResultsContainer from "../../components/ResultsContainer.tsx";
 import { WordResult } from "../../types.ts";

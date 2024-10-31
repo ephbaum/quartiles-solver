@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h as _h } from "preact";
 import { fireEvent, render } from "@testing-library/preact";
 import SolverForm from "../../components/SolverForm.tsx";
 

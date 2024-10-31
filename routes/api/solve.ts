@@ -1,5 +1,5 @@
 import { FreshContext } from "$fresh/server.ts";
-import { WordPart, WordResult } from "../types.ts";
+import { WordPart, WordResult } from "../../types.ts";
 
 function generatePermutations(
   parts: string[],

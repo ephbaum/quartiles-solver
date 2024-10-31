@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h as _h } from "preact";
 import { fireEvent, render, waitFor } from "@testing-library/preact";
 import QuartileSolver from "../../islands/QuartileSolver.tsx";
 

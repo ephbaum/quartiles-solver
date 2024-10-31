@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h as _h } from "preact";
 import { render } from "@testing-library/preact";
 import Result from "../../components/Result.tsx";
 import WordPart from "../../components/WordPart.tsx";
