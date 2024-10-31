@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 import { assertEquals } from "$std/assert/assert_equals.ts";
 import { handler } from "../routes/api/solve.ts";
 import * as sinon from "https://cdn.skypack.dev/sinon@19.0.2";
@@ -36,10 +37,13 @@ Deno.test("POST /api/solve - valid input", async () => {
 
   // Mock the fetch function
   const fetchStub = sinon.stub(globalThis, "fetch").resolves(
-    new Response("pre\npost\nun\nre\nfix\ning\ned\ns\nly\ntion\nment\nness\nity\nable\nible\nal\nful", {
-      status: 200,
-      headers: { "Content-Type": "text/plain" },
-    })
+    new Response(
+      "pre\npost\nun\nre\nfix\ning\ned\ns\nly\ntion\nment\nness\nity\nable\nible\nal\nful",
+      {
+        status: 200,
+        headers: { "Content-Type": "text/plain" },
+      },
+    ),
   );
 
   const response = await handler(request, {} as any);
@@ -87,10 +91,13 @@ Deno.test("POST /api/solve - invalid input", async () => {
 
   // Mock the fetch function
   const fetchStub = sinon.stub(globalThis, "fetch").resolves(
-    new Response("pre\npost\nun\nre\nfix\ning\ned\ns\nly\ntion\nment\nness\nity\nable\nible\nal\nful", {
-      status: 200,
-      headers: { "Content-Type": "text/plain" },
-    })
+    new Response(
+      "pre\npost\nun\nre\nfix\ning\ned\ns\nly\ntion\nment\nness\nity\nable\nible\nal\nful",
+      {
+        status: 200,
+        headers: { "Content-Type": "text/plain" },
+      },
+    ),
   );
 
   const response = await handler(request, {} as any);

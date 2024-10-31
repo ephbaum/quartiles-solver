@@ -6,11 +6,14 @@ function generatePermutations(parts: string[], maxLength: number): string[] {
 
   function permute(current: string[], remaining: string[]) {
     if (current.length > 0 && current.length <= maxLength) {
-      results.push(current.join(''));
+      results.push(current.join(""));
     }
     if (current.length < maxLength) {
       for (let i = 0; i < remaining.length; i++) {
-        permute(current.concat(remaining[i]), remaining.slice(0, i).concat(remaining.slice(i + 1)));
+        permute(
+          current.concat(remaining[i]),
+          remaining.slice(0, i).concat(remaining.slice(i + 1)),
+        );
       }
     }
   }
@@ -41,18 +44,22 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
     }
 
     // Fetch the dictionary file from the URL and read it into a set for fast lookup
-    const response = await fetch('https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_alpha.txt');
+    const response = await fetch(
+      "https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_alpha.txt",
+    );
     if (!response.ok) {
-      throw new Error('Failed to fetch dictionary file');
+      throw new Error("Failed to fetch dictionary file");
     }
     const text = await response.text();
-    const dictionary = new Set(text.split('\n').map((word) => word.trim()));
+    const dictionary = new Set(text.split("\n").map((word) => word.trim()));
 
     // Generate permutations of lengths 1 to 4
     const permutations = generatePermutations(inputs, 4);
 
     // Filter valid words and remove duplicates
-    const validWords = [...new Set(permutations.filter((word) => dictionary.has(word)))];
+    const validWords = [
+      ...new Set(permutations.filter((word) => dictionary.has(word))),
+    ];
 
     // Sort valid words by length from smallest to largest
     validWords.sort((a, b) => a.length - b.length);
@@ -61,9 +68,9 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error('Error processing request:', error);
+    console.error("Error processing request:", error);
 
-    let errorMessage = 'An unknown error occurred';
+    let errorMessage = "An unknown error occurred";
     if (error instanceof Error) {
       errorMessage = error.message;
     }
