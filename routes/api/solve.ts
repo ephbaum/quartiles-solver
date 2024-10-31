@@ -13,7 +13,11 @@ function generatePermutations(parts: string[], maxLength: number): WordResult[] 
     }
     if (current.length < maxLength) {
       for (let i = 0; i < remaining.length; i++) {
-        permute(current.concat(remaining[i]), remaining.slice(0, i).concat(remaining.slice(i + 1)), order.concat(i + 1));
+        permute(
+          current.concat(remaining[i]), 
+          remaining.slice(0, i).concat(remaining.slice(i + 1)), 
+          order.concat(i + 1)
+        );
       }
     }
   }
@@ -42,16 +46,21 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
       }
     }
 
-    const response = await fetch('https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_alpha.txt');
+    const response = await fetch(
+      "https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_alpha.txt",
+    );
+    
     if (!response.ok) {
-      throw new Error('Failed to fetch dictionary file');
+      throw new Error("Failed to fetch dictionary file");
     }
     const text = await response.text();
-    const dictionary = new Set(text.split('\n').map((word) => word.trim()));
+    const dictionary = new Set(text.split("\n").map((word) => word.trim()));
 
     const permutations = generatePermutations(inputs, 4);
 
-    const validWords = [...new Set(permutations.filter((result) => dictionary.has(result.word)))];
+    const validWords = [
+      ...new Set(permutations.filter((result) => dictionary.has(result.word)))
+    ];
 
     validWords.sort((a, b) => a.word.length - b.word.length);
 
@@ -59,9 +68,9 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error('Error processing request:', error);
+    console.error("Error processing request:", error);
 
-    let errorMessage = 'An unknown error occurred';
+    let errorMessage = "An unknown error occurred";
     if (error instanceof Error) {
       errorMessage = error.message;
     }
