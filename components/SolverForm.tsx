@@ -2,7 +2,7 @@ import { h as _h } from "preact";
 import { useState } from "preact/hooks";
 
 interface SolverFormProps {
-  onSubmit: (jsonData: any) => Promise<void>;
+  onSubmit: (jsonData: unknown) => Promise<void>;
   isLoading: boolean;
 }
 

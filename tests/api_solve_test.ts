@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 import { assertEquals } from "$std/assert/assert_equals.ts";
 import { handler } from "../routes/api/solve.ts";
 import * as sinon from "https://cdn.skypack.dev/sinon@19.0.2";

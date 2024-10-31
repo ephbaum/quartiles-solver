@@ -13,7 +13,7 @@ export default function QuartileSolver(
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(_error || "");
 
-  const handleSubmit = async (jsonData: any) => {
+  const handleSubmit = async (jsonData: unknown) => {
     setIsLoading(true);
     setErrorMessage("");
     try {
