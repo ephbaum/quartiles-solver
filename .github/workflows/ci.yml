@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Deno
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.7.2
+          deno-version: v2.0.0
 
       - name: Check code formatting
         run: deno fmt --check
