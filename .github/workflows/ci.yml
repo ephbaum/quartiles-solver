@@ -22,10 +22,7 @@ jobs:
           deno-version: v1.7.2
 
       - name: Check code formatting
-        run: deno fmt --check
-
-      - name: Lint code
-        run: deno lint
+        run: deno task check
 
       - name: Run tests
         run: deno task test
