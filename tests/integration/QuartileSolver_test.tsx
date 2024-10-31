@@ -1,9 +1,11 @@
 import { h } from "preact";
-import { render, fireEvent, waitFor } from "@testing-library/preact";
+import { fireEvent, render, waitFor } from "@testing-library/preact";
 import QuartileSolver from "../../islands/QuartileSolver.tsx";
 
 Deno.test("QuartileSolver integration test", async () => {
-  const { getByText, getByRole, getByLabelText, container } = render(<QuartileSolver />);
+  const { getByText, getByRole, getByLabelText, container } = render(
+    <QuartileSolver />,
+  );
 
   // Fill in the form
   const inputElements = container.querySelectorAll("input");

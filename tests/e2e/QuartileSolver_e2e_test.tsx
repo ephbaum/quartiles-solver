@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { render, fireEvent, waitFor } from "@testing-library/preact";
+import { fireEvent, render, waitFor } from "@testing-library/preact";
 import QuartileSolver from "../../islands/QuartileSolver.tsx";
 
 Deno.test("End-to-end test for QuartileSolver", async () => {
@@ -11,7 +11,7 @@ Deno.test("End-to-end test for QuartileSolver", async () => {
     ["fix", "fix", "fix", "fix"],
     ["ing", "ed", "s", "ly"],
     ["tion", "ment", "ness", "ity"],
-    ["able", "ible", "al", "ful"]
+    ["able", "ible", "al", "ful"],
   ];
 
   inputs.forEach((row, rowIndex) => {

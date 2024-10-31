@@ -9,9 +9,7 @@ interface ResultProps {
 export default function Result({ result }: ResultProps) {
   return (
     <p>
-      {result.parts.map((part, index) => (
-        <WordPart key={index} part={part} />
-      ))}
+      {result.parts.map((part, index) => <WordPart key={index} part={part} />)}
     </p>
   );
 }

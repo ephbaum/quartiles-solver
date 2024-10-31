@@ -1,22 +1,25 @@
 import { FreshContext } from "$fresh/server.ts";
-import { WordResult, WordPart } from "../types.ts";
+import { WordPart, WordResult } from "../types.ts";
 
-function generatePermutations(parts: string[], maxLength: number): WordResult[] {
+function generatePermutations(
+  parts: string[],
+  maxLength: number,
+): WordResult[] {
   const results: WordResult[] = [];
 
   function permute(current: string[], remaining: string[], order: number[]) {
     if (current.length > 0 && current.length <= maxLength) {
       results.push({
-        word: current.join(''),
-        parts: current.map((part, index) => ({ part, order: order[index] }))
+        word: current.join(""),
+        parts: current.map((part, index) => ({ part, order: order[index] })),
       });
     }
     if (current.length < maxLength) {
       for (let i = 0; i < remaining.length; i++) {
         permute(
-          current.concat(remaining[i]), 
-          remaining.slice(0, i).concat(remaining.slice(i + 1)), 
-          order.concat(i + 1)
+          current.concat(remaining[i]),
+          remaining.slice(0, i).concat(remaining.slice(i + 1)),
+          order.concat(i + 1),
         );
       }
     }
@@ -49,7 +52,7 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
     const response = await fetch(
       "https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_alpha.txt",
     );
-    
+
     if (!response.ok) {
       throw new Error("Failed to fetch dictionary file");
     }
@@ -59,7 +62,7 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
     const permutations = generatePermutations(inputs, 4);
 
     const validWords = [
-      ...new Set(permutations.filter((result) => dictionary.has(result.word)))
+      ...new Set(permutations.filter((result) => dictionary.has(result.word))),
     ];
 
     validWords.sort((a, b) => a.word.length - b.word.length);

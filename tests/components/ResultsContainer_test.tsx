@@ -22,7 +22,7 @@ const mockResults: WordResult[] = [
 
 Deno.test("ResultsContainer component displays results correctly", () => {
   const { container } = render(
-    <ResultsContainer results={mockResults} error="" showResults={true} />
+    <ResultsContainer results={mockResults} error="" showResults={true} />,
   );
   const paragraphs = container.querySelectorAll("p");
   assertEquals(paragraphs.length, 2);
@@ -32,7 +32,11 @@ Deno.test("ResultsContainer component displays results correctly", () => {
 
 Deno.test("ResultsContainer component handles errors correctly", () => {
   const { container } = render(
-    <ResultsContainer results={[]} error="An error occurred" showResults={true} />
+    <ResultsContainer
+      results={[]}
+      error="An error occurred"
+      showResults={true}
+    />,
   );
   const errorParagraph = container.querySelector("p");
   assertEquals(errorParagraph?.textContent, "An error occurred");
@@ -40,7 +44,7 @@ Deno.test("ResultsContainer component handles errors correctly", () => {
 
 Deno.test("ResultsContainer component does not display when showResults is false", () => {
   const { container } = render(
-    <ResultsContainer results={mockResults} error="" showResults={false} />
+    <ResultsContainer results={mockResults} error="" showResults={false} />,
   );
   const resultsContainer = container.querySelector("#results-container");
   assertEquals(resultsContainer, null);

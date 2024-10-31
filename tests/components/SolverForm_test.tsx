@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { render, fireEvent } from "@testing-library/preact";
+import { fireEvent, render } from "@testing-library/preact";
 import SolverForm from "../../components/SolverForm.tsx";
 
 Deno.test("SolverForm component handles form submission correctly", async () => {
@@ -12,7 +12,7 @@ Deno.test("SolverForm component handles form submission correctly", async () => 
   };
 
   const { container, getByText } = render(
-    <SolverForm onSubmit={mockOnSubmit} isLoading={false} />
+    <SolverForm onSubmit={mockOnSubmit} isLoading={false} />,
   );
 
   const form = container.querySelector("form");
@@ -30,7 +30,7 @@ Deno.test("SolverForm component displays error message correctly", async () => {
   };
 
   const { container, getByText } = render(
-    <SolverForm onSubmit={mockOnSubmit} isLoading={false} />
+    <SolverForm onSubmit={mockOnSubmit} isLoading={false} />,
   );
 
   const form = container.querySelector("form");
@@ -38,6 +38,11 @@ Deno.test("SolverForm component displays error message correctly", async () => {
     fireEvent.submit(form);
   }
 
-  const errorMessage = await getByText("An error occurred while processing your request.");
-  assertEquals(errorMessage.textContent, "An error occurred while processing your request.");
+  const errorMessage = await getByText(
+    "An error occurred while processing your request.",
+  );
+  assertEquals(
+    errorMessage.textContent,
+    "An error occurred while processing your request.",
+  );
 });
