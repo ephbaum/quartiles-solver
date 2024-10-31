@@ -1,6 +1,8 @@
 ## Overview
 
-Quartiles Solver is built with Deno and Fresh. The application allows users to input word parts and generate a list of valid words to achieve an expert score in Quartiles on Apple News+.
+Quartiles Solver is built with Deno and Fresh. The application allows users to
+input word parts and generate a list of valid words to achieve an expert score
+in Quartiles on Apple News+.
 
 ## Directory structure
 
@@ -43,22 +45,25 @@ Quartiles Solver is built with Deno and Fresh. The application allows users to i
 
 ### Main routes
 
-* `GET /`: Render the main interface for inputting word parts.
-* `POST /`: Process the input word parts and return a list of valid words.
+- `GET /`: Render the main interface for inputting word parts.
+- `POST /`: Process the input word parts and return a list of valid words.
 
 ## Configuration
 
 ### Deno configuration
 
-The project uses `deno.json` for configuration, including tasks for formatting, linting, building, and running the project.
+The project uses `deno.json` for configuration, including tasks for formatting,
+linting, building, and running the project.
 
 ### Fresh configuration
 
-The `fresh.config.ts` file defines the configuration for the Fresh framework, including plugins like Tailwind CSS.
+The `fresh.config.ts` file defines the configuration for the Fresh framework,
+including plugins like Tailwind CSS.
 
 ### Docker configuration
 
-The `.devcontainer` directory contains the Docker configuration files for setting up the development environment.
+The `.devcontainer` directory contains the Docker configuration files for
+setting up the development environment.
 
 ## Development
 
