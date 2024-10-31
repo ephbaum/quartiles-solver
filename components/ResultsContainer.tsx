@@ -1,7 +1,9 @@
 import { h as _h } from "preact";
+import { WordResult } from "../types.ts";
+import Result from "./Result.tsx";
 
 interface ResultsContainerProps {
-  results: string[];
+  results: WordResult[];
   error: string;
   showResults: boolean;
 }
@@ -15,9 +17,7 @@ export default function ResultsContainer({ results, error, showResults }: Result
       {error && <p class="text-red-500">{error}</p>}
       <div class="flex flex-wrap">
         {results.map((result, index) => (
-          <li key={index} class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 text-center">
-            {result}
-          </li>
+          <Result key={index} result={result} />
         ))}
       </div>
     </div>

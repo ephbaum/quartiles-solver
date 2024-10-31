@@ -1,28 +1,30 @@
 import { FreshContext } from "$fresh/server.ts";
+import { WordResult, WordPart } from "../types.ts";
 
-// Function to generate permutations
-function generatePermutations(parts: string[], maxLength: number): string[] {
-  const results: string[] = [];
+function generatePermutations(parts: string[], maxLength: number): WordResult[] {
+  const results: WordResult[] = [];
 
-  function permute(current: string[], remaining: string[]) {
+  function permute(current: string[], remaining: string[], order: number[]) {
     if (current.length > 0 && current.length <= maxLength) {
-      results.push(current.join(''));
+      results.push({
+        word: current.join(''),
+        parts: current.map((part, index) => ({ part, order: order[index] }))
+      });
     }
     if (current.length < maxLength) {
       for (let i = 0; i < remaining.length; i++) {
-        permute(current.concat(remaining[i]), remaining.slice(0, i).concat(remaining.slice(i + 1)));
+        permute(current.concat(remaining[i]), remaining.slice(0, i).concat(remaining.slice(i + 1)), order.concat(i + 1));
       }
     }
   }
 
   for (let i = 1; i <= maxLength; i++) {
-    permute([], parts);
+    permute([], parts, []);
   }
 
   return results;
 }
 
-// Handler function for the route
 export const handler = async (req: Request, _ctx: FreshContext) => {
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ results: [] }), {
@@ -40,7 +42,6 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
       }
     }
 
-    // Fetch the dictionary file from the URL and read it into a set for fast lookup
     const response = await fetch('https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_alpha.txt');
     if (!response.ok) {
       throw new Error('Failed to fetch dictionary file');
@@ -48,14 +49,11 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
     const text = await response.text();
     const dictionary = new Set(text.split('\n').map((word) => word.trim()));
 
-    // Generate permutations of lengths 1 to 4
     const permutations = generatePermutations(inputs, 4);
 
-    // Filter valid words and remove duplicates
-    const validWords = [...new Set(permutations.filter((word) => dictionary.has(word)))];
+    const validWords = [...new Set(permutations.filter((result) => dictionary.has(result.word)))];
 
-    // Sort valid words by length from smallest to largest
-    validWords.sort((a, b) => a.length - b.length);
+    validWords.sort((a, b) => a.word.length - b.word.length);
 
     return new Response(JSON.stringify({ results: validWords }), {
       headers: { "Content-Type": "application/json" },
