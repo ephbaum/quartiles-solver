@@ -1,4 +1,5 @@
 import { h as _h } from "preact";
+import { assertEquals } from "$std/assert/assert_equals.ts";
 import { render } from "@testing-library/preact";
 import Result from "../../components/Result.tsx";
 import WordPart from "../../components/WordPart.tsx";

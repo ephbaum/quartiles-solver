@@ -1,4 +1,5 @@
 import { h as _h } from "preact";
+import { assertEquals } from "$std/assert/assert_equals.ts";
 import { fireEvent, render } from "@testing-library/preact";
 import SolverForm from "../../components/SolverForm.tsx";
 
@@ -20,7 +21,7 @@ Deno.test("SolverForm component handles form submission correctly", async () => 
     fireEvent.submit(form);
   }
 
-  const button = getByText("Solve");
+  const button = getByText("Solve") as HTMLButtonElement;
   assertEquals(button.disabled, false);
 });
 

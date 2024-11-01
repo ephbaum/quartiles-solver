@@ -20,8 +20,12 @@ export default function ResultsContainer(
     >
       <h2 class="text-1xl font-bold mb-4 text-center">Results</h2>
       {error && <p class="text-red-500">{error}</p>}
-      <div class="flex flex-wrap">
-        {results.map((result, index) => <Result key={index} result={result} />)}
+      <div class="flex flex-col space-y-4">
+        {results.map((result, index) => (
+          <div key={index} class="p-2 border-b border-gray-200">
+            <Result result={result} />
+          </div>
+        ))}
       </div>
     </div>
   );

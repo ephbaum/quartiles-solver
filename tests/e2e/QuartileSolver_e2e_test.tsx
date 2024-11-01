@@ -1,5 +1,6 @@
 import { h as _h } from "preact";
 import { fireEvent, render, waitFor } from "@testing-library/preact";
+import { assert, assertEquals } from "$std/assert/mod.ts";
 import QuartileSolver from "../../islands/QuartileSolver.tsx";
 
 Deno.test("End-to-end test for QuartileSolver", async () => {
@@ -30,9 +31,9 @@ Deno.test("End-to-end test for QuartileSolver", async () => {
 
   // Check that results are displayed correctly
   const resultsContainer = getByRole("results-container");
-  expect(resultsContainer).toBeInTheDocument();
-  expect(resultsContainer).toHaveTextContent(/pre/i);
-  expect(resultsContainer).toHaveTextContent(/post/i);
-  expect(resultsContainer).toHaveTextContent(/un/i);
-  expect(resultsContainer).toHaveTextContent(/re/i);
+  assert(resultsContainer, "Results container should be in the document");
+  assertEquals(resultsContainer?.textContent?.includes("pre"), true);
+  assertEquals(resultsContainer?.textContent?.includes("post"), true);
+  assertEquals(resultsContainer?.textContent?.includes("un"), true);
+  assertEquals(resultsContainer?.textContent?.includes("re"), true);
 });

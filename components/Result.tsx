@@ -8,8 +8,17 @@ interface ResultProps {
 
 export default function Result({ result }: ResultProps) {
   return (
-    <p>
-      {result.parts.map((part, index) => <WordPart key={index} part={part} />)}
-    </p>
+    <div class="mb-4">
+      <div class="flex flex-wrap gap-1">
+        {result.parts.map((part, index) => (
+          <span
+            key={index}
+            class="bg-gray-100 text-black px-2 py-1 rounded-sm text-sm"
+          >
+            <WordPart part={part} />
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }

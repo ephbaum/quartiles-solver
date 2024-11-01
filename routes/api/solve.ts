@@ -2,17 +2,22 @@ import { FreshContext } from "$fresh/server.ts";
 import { WordPart, WordResult } from "../../types.ts";
 
 function generatePermutations(
-  parts: string[],
+  parts: WordPart[],
   maxLength: number,
 ): WordResult[] {
   const results: WordResult[] = [];
+  const seen = new Set<string>();
 
-  function permute(current: string[], remaining: string[], order: number[]) {
+  function permute(current: WordPart[], remaining: WordPart[], order: number[]) {
     if (current.length > 0 && current.length <= maxLength) {
-      results.push({
-        word: current.join(""),
-        parts: current.map((part, index) => ({ part, order: order[index] })),
-      });
+      const word = current.map(part => part.part).join("");
+      if (!seen.has(word)) {
+        seen.add(word);
+        results.push({
+          word,
+          parts: current.map((part, index) => ({ part: part.part, order: order[index] })),
+        });
+      }
     }
     if (current.length < maxLength) {
       for (let i = 0; i < remaining.length; i++) {
@@ -41,11 +46,14 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
 
   try {
     const jsonData = await req.json();
-    const inputs: string[] = [];
+    const inputs: WordPart[] = [];
 
     for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
       for (let colIndex = 0; colIndex < 4; colIndex++) {
-        inputs.push(jsonData[`input-${rowIndex}-${colIndex}`]);
+        inputs.push({
+          part: jsonData[`input-${rowIndex}-${colIndex}`],
+          order: rowIndex * 4 + colIndex + 1,
+        });
       }
     }
 
@@ -61,9 +69,10 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
 
     const permutations = generatePermutations(inputs, 4);
 
-    const validWords = [
-      ...new Set(permutations.filter((result) => dictionary.has(result.word))),
-    ];
+    // Deduplicate results based on the word property
+    const uniqueResults = Array.from(new Map(permutations.map(result => [result.word, result])).values());
+
+    const validWords = uniqueResults.filter((result) => dictionary.has(result.word));
 
     validWords.sort((a, b) => a.word.length - b.word.length);
 

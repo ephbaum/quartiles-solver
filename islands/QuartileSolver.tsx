@@ -2,6 +2,7 @@ import { h as _h } from "preact";
 import { useState } from "preact/hooks";
 import ResultsContainer from "../components/ResultsContainer.tsx";
 import SolverForm from "../components/SolverForm.tsx";
+import { WordResult } from "../types.ts";
 
 export default function QuartileSolver(
   { results: initialResults, error: _error }: {
@@ -9,7 +10,7 @@ export default function QuartileSolver(
     error?: string;
   },
 ) {
-  const [results, setResults] = useState(initialResults || []);
+  const [results, setResults] = useState<WordResult[]>(initialResults?.map(result => ({ word: result, parts: [] })) || []);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(_error || "");
 
