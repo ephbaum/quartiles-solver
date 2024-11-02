@@ -8,14 +8,21 @@ function generatePermutations(
   const results: WordResult[] = [];
   const seen = new Set<string>();
 
-  function permute(current: WordPart[], remaining: WordPart[], order: number[]) {
+  function permute(
+    current: WordPart[],
+    remaining: WordPart[],
+    order: number[],
+  ) {
     if (current.length > 0 && current.length <= maxLength) {
-      const word = current.map(part => part.part).join("");
+      const word = current.map((part) => part.part).join("");
       if (!seen.has(word)) {
         seen.add(word);
         results.push({
           word,
-          parts: current.map((part, index) => ({ part: part.part, order: order[index] })),
+          parts: current.map((part, index) => ({
+            part: part.part,
+            order: order[index],
+          })),
         });
       }
     }
@@ -70,9 +77,13 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
     const permutations = generatePermutations(inputs, 4);
 
     // Deduplicate results based on the word property
-    const uniqueResults = Array.from(new Map(permutations.map(result => [result.word, result])).values());
+    const uniqueResults = Array.from(
+      new Map(permutations.map((result) => [result.word, result])).values(),
+    );
 
-    const validWords = uniqueResults.filter((result) => dictionary.has(result.word));
+    const validWords = uniqueResults.filter((result) =>
+      dictionary.has(result.word)
+    );
 
     validWords.sort((a, b) => a.word.length - b.word.length);
 

@@ -10,7 +10,9 @@ export default function QuartileSolver(
     error?: string;
   },
 ) {
-  const [results, setResults] = useState<WordResult[]>(initialResults?.map(result => ({ word: result, parts: [] })) || []);
+  const [results, setResults] = useState<WordResult[]>(
+    initialResults?.map((result) => ({ word: result, parts: [] })) || [],
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(_error || "");
 
