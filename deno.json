@@ -8,7 +8,7 @@
     "build": "deno run -A dev.ts build",
     "preview": "deno run -A main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update .",
-    "test": "deno test --allow-net --allow-read --allow-import"
+    "test": "deno test --allow-all"
   },
   "lint": {
     "rules": {
@@ -31,7 +31,13 @@
     "preact/": "https://esm.sh/preact@10.22.0/",
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
-    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"
+    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
+    "$fresh-testing-library": "https://deno.land/x/fresh_testing_library@0.13.1/mod.ts",
+    "$fresh-testing-library/": "https://deno.land/x/fresh_testing_library@0.13.1/",
+    "$fresh-testing-library/components.ts": "https://deno.land/x/fresh_testing_library@0.13.1/components.ts",
+    "$fresh-testing-library/expect.ts": "https://deno.land/x/fresh_testing_library@0.13.1/expect.ts",
+    "$std/testing/bdd.ts": "https://deno.land/std@0.216.0/testing/bdd.ts",
+    "$std/assert/mod.ts": "https://deno.land/std@0.216.0/assert/mod.ts"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
