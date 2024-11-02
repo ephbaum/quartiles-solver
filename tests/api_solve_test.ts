@@ -53,6 +53,16 @@ Deno.test("POST /api/solve - valid input", async () => {
   assertEquals(Array.isArray(data.results), true);
   assertEquals(data.results.length > 0, true);
 
+  // Check that each word result includes the correct parts
+  data.results.forEach((result: any) => {
+    assertEquals(typeof result.word, "string");
+    assertEquals(Array.isArray(result.parts), true);
+    result.parts.forEach((part: any) => {
+      assertEquals(typeof part.part, "string");
+      assertEquals(typeof part.order, "number");
+    });
+  });
+
   // Restore the original fetch function
   fetchStub.restore();
 });

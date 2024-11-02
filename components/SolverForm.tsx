@@ -2,18 +2,21 @@ import { h as _h } from "preact";
 import { useState } from "preact/hooks";
 
 interface SolverFormProps {
-  onSubmit: (jsonData: unknown) => Promise<void>;
+  onSubmit: (jsonData: Record<string, string>) => Promise<void>;
   isLoading: boolean;
 }
 
-export default function SolverForm({ onSubmit, isLoading }: SolverFormProps) {
+const SolverForm = ({ onSubmit, isLoading }: SolverFormProps) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
     setErrorMessage("");
     const formData = new FormData(event.target as HTMLFormElement);
-    const jsonData = Object.fromEntries(formData.entries());
+    const jsonData: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      jsonData[key] = value as string;
+    });
 
     try {
       await onSubmit(jsonData);
@@ -64,4 +67,6 @@ export default function SolverForm({ onSubmit, isLoading }: SolverFormProps) {
       {errorMessage && <p class="text-red-500">{errorMessage}</p>}
     </div>
   );
-}
+};
+
+export default SolverForm;
