@@ -22,13 +22,13 @@ jobs:
           deno-version: v2.0.0
 
       - name: Check code formatting
-        run: deno fmt --check
+        run: deno fmt --check --allow-all
 
       - name: Check code linting
-        run: deno lint
+        run: deno lint --allow-all
 
       - name: Check types
-        run: deno check --allow-import **/*.ts && deno check --allow-import **/*.tsx
+        run: deno check --allow-all **/*.ts && deno check --allow-import **/*.tsx
 
       - name: Run tests
-        run: deno test --allow-net --allow-read --allow-import
+        run: deno test --allow-all
