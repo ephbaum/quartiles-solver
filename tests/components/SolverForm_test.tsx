@@ -10,14 +10,22 @@ describe("SolverForm component tests", () => {
   beforeAll(() => {
     setup();
     globalThis.FormData = class {
-      private data: Record<string, string> = {};
+      private data: Map<string, string> = new Map();
+
       append(key: string, value: string) {
-        this.data[key] = value;
+        this.data.set(key, value);
       }
+
       entries() {
-        return Object.entries(this.data);
+        return this.data.entries();
       }
-    } as any;
+
+      forEach(callback: (value: string, key: string) => void) {
+        for (const [key, value] of this.data.entries()) {
+          callback(value, key);
+        }
+      }
+    } as unknown as typeof FormData;
   });
 
   afterEach(() => {
@@ -26,7 +34,7 @@ describe("SolverForm component tests", () => {
   });
 
   it("should handle form submission correctly", async () => {
-    const mockOnSubmit = async (jsonData: any) => {
+    const mockOnSubmit = (_jsonData: Record<string, string>) => {
       return new Promise<void>((resolve) => {
         timerId = setTimeout(() => {
           resolve();
@@ -48,7 +56,7 @@ describe("SolverForm component tests", () => {
   });
 
   it("should display error message correctly", async () => {
-    const mockOnSubmit = async () => {
+    const mockOnSubmit = () => {
       throw new Error("Test error");
     };
 

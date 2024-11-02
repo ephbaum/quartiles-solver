@@ -26,7 +26,7 @@ describe("ResultsContainer component tests", () => {
   afterEach(cleanup);
 
   it("should display results correctly", () => {
-    const { container, debug } = render(
+    const { container } = render(
       <ResultsContainer results={mockResults} error="" showResults={true} />,
     );
     const spans = container.querySelectorAll("span span");

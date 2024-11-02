@@ -15,7 +15,13 @@ globalThis.FormData = class {
   entries() {
     return this.data.entries();
   }
-} as any;
+
+  forEach(callback: (value: string, key: string) => void) {
+    for (const [key, value] of this.data.entries()) {
+      callback(value, key);
+    }
+  }
+} as unknown as typeof FormData;
 
 describe("QuartileSolver integration tests", () => {
   beforeAll(setup);
@@ -23,22 +29,30 @@ describe("QuartileSolver integration tests", () => {
 
   it("should display results correctly after form submission", async () => {
     // Mock the fetch function to return a successful response
-    globalThis.fetch = async () => {
-      return new Response(
-        JSON.stringify({
-          results: [
-            {
-              word: "part0part1",
-              parts: [{ part: "part0", order: 1 }, { part: "part1", order: 2 }],
-            },
-            {
-              word: "part2part3",
-              parts: [{ part: "part2", order: 1 }, { part: "part3", order: 2 }],
-            },
-          ],
-          error: "",
-        }),
-        { status: 200, headers: { "Content-Type": "application/json" } },
+    globalThis.fetch = () => {
+      return Promise.resolve(
+        new Response(
+          JSON.stringify({
+            results: [
+              {
+                word: "part0part1",
+                parts: [{ part: "part0", order: 1 }, {
+                  part: "part1",
+                  order: 2,
+                }],
+              },
+              {
+                word: "part2part3",
+                parts: [{ part: "part2", order: 1 }, {
+                  part: "part3",
+                  order: 2,
+                }],
+              },
+            ],
+            error: "",
+          }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        ),
       );
     };
 
