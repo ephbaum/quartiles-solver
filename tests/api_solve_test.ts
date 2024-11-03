@@ -1,7 +1,6 @@
-// deno-lint-ignore-file no-explicit-any
 import { assertEquals } from "$std/assert/assert_equals.ts";
 import { handler } from "../routes/api/solve.ts";
-import * as sinon from "https://cdn.skypack.dev/sinon@19.0.2";
+import { WordPart, WordResult } from "../types.ts";
 
 Deno.test("POST /api/solve - valid input", async () => {
   const jsonData = {
@@ -35,18 +34,38 @@ Deno.test("POST /api/solve - valid input", async () => {
     body: JSON.stringify(jsonData),
   });
 
-  // Mock the fetch function
-  const fetchStub = sinon.stub(globalThis, "fetch").resolves(
-    new Response(
-      "pre\npost\nun\nre\nfix\ning\ned\ns\nly\ntion\nment\nness\nity\nable\nible\nal\nful",
-      {
-        status: 200,
-        headers: { "Content-Type": "text/plain" },
+  const response = await handler(request, {
+    remoteAddr: { hostname: "127.0.0.1", port: 80, transport: "tcp" },
+    url: new URL(request.url),
+    basePath: "",
+    route: "/api/solve",
+    state: {},
+    pattern: "",
+    destination: "route",
+    params: {},
+    isPartial: false,
+    config: {
+      dev: false,
+      build: {
+        outDir: "dist",
+        target: "esnext",
       },
-    ),
-  );
+      render: () => Promise.resolve(),
+      plugins: [],
+      staticDir: "",
+      server: {
+        port: 8000,
+        hostname: "localhost",
+      },
+      basePath: "/",
+    },
+    data: {},
+    renderNotFound: () => Promise.resolve(new Response()),
+    render: () => Promise.resolve(new Response()),
+    Component: () => null,
+    next: () => Promise.resolve(new Response()),
+  });
 
-  const response = await handler(request, {} as any);
   const data = await response.json();
 
   assertEquals(response.status, 200);
@@ -54,17 +73,14 @@ Deno.test("POST /api/solve - valid input", async () => {
   assertEquals(data.results.length > 0, true);
 
   // Check that each word result includes the correct parts
-  data.results.forEach((result: any) => {
+  data.results.forEach((result: WordResult) => {
     assertEquals(typeof result.word, "string");
     assertEquals(Array.isArray(result.parts), true);
-    result.parts.forEach((part: any) => {
+    result.parts.forEach((part: WordPart) => {
       assertEquals(typeof part.part, "string");
       assertEquals(typeof part.order, "number");
     });
   });
-
-  // Restore the original fetch function
-  fetchStub.restore();
 });
 
 Deno.test("POST /api/solve - invalid input", async () => {
@@ -99,26 +115,42 @@ Deno.test("POST /api/solve - invalid input", async () => {
     body: JSON.stringify(jsonData),
   });
 
-  // Mock the fetch function
-  const fetchStub = sinon.stub(globalThis, "fetch").resolves(
-    new Response(
-      "pre\npost\nun\nre\nfix\ning\ned\ns\nly\ntion\nment\nness\nity\nable\nible\nal\nful",
-      {
-        status: 200,
-        headers: { "Content-Type": "text/plain" },
+  const response = await handler(request, {
+    remoteAddr: { hostname: "127.0.0.1", port: 80, transport: "tcp" },
+    url: new URL(request.url),
+    basePath: "",
+    route: "/api/solve",
+    state: {},
+    pattern: "",
+    destination: "route",
+    params: {},
+    isPartial: false,
+    config: {
+      dev: false,
+      build: {
+        outDir: "dist",
+        target: "esnext",
       },
-    ),
-  );
-
-  const response = await handler(request, {} as any);
+      render: () => Promise.resolve(),
+      plugins: [],
+      staticDir: "",
+      server: {
+        port: 8000,
+        hostname: "localhost",
+      },
+      basePath: "/",
+    },
+    data: {},
+    renderNotFound: () => Promise.resolve(new Response()),
+    render: () => Promise.resolve(new Response()),
+    Component: () => null,
+    next: () => Promise.resolve(new Response()),
+  });
   const data = await response.json();
 
   assertEquals(response.status, 200);
   assertEquals(Array.isArray(data.results), true);
   assertEquals(data.results.length, 0);
-
-  // Restore the original fetch function
-  fetchStub.restore();
 });
 
 Deno.test("GET /api/solve - method not allowed", async () => {
@@ -126,7 +158,37 @@ Deno.test("GET /api/solve - method not allowed", async () => {
     method: "GET",
   });
 
-  const response = await handler(request, {} as any);
+  const response = await handler(request, {
+    remoteAddr: { hostname: "127.0.0.1", port: 80, transport: "tcp" },
+    url: new URL(request.url),
+    basePath: "",
+    route: "/api/solve",
+    state: {},
+    pattern: "",
+    destination: "route",
+    params: {},
+    isPartial: false,
+    config: {
+      dev: false,
+      build: {
+        outDir: "dist",
+        target: "esnext",
+      },
+      render: () => Promise.resolve(),
+      plugins: [],
+      staticDir: "",
+      server: {
+        port: 8000,
+        hostname: "localhost",
+      },
+      basePath: "/",
+    },
+    data: {},
+    renderNotFound: () => Promise.resolve(new Response()),
+    render: () => Promise.resolve(new Response()),
+    Component: () => null,
+    next: () => Promise.resolve(new Response()),
+  });
   const data = await response.json();
 
   assertEquals(response.status, 200);

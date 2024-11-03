@@ -2,7 +2,7 @@ import { cleanup, render, setup } from "$fresh-testing-library/components.ts";
 import { afterEach, beforeAll, describe, it } from "$std/testing/bdd.ts";
 import { assertEquals } from "$std/assert/mod.ts";
 import { fireEvent } from "@testing-library/preact";
-import SolverForm from "../../components/SolverForm.tsx";
+import SolverForm from "../../islands/SolverForm.tsx";
 
 describe("SolverForm component tests", () => {
   let timerId: number;
