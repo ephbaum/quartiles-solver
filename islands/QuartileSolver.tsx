@@ -1,7 +1,7 @@
 import { h as _h } from "preact";
 import { useState } from "preact/hooks";
 import ResultsContainer from "../components/ResultsContainer.tsx";
-import SolverForm from "../components/SolverForm.tsx";
+import SolverForm from "./SolverForm.tsx";
 import { WordResult } from "../types.ts";
 
 export default function QuartileSolver(

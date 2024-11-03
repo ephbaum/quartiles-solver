@@ -8,6 +8,7 @@ import * as $about from "./routes/about.tsx";
 import * as $api_solve from "./routes/api/solve.ts";
 import * as $index from "./routes/index.tsx";
 import * as $QuartileSolver from "./islands/QuartileSolver.tsx";
+import * as $SolverForm from "./islands/SolverForm.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -20,6 +21,7 @@ const manifest = {
   },
   islands: {
     "./islands/QuartileSolver.tsx": $QuartileSolver,
+    "./islands/SolverForm.tsx": $SolverForm,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

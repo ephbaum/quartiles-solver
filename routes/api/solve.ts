@@ -64,14 +64,9 @@ export const handler = async (req: Request, _ctx: FreshContext) => {
       }
     }
 
-    const response = await fetch(
-      "https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_alpha.txt",
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch dictionary file");
-    }
-    const text = await response.text();
+    const decoder = new TextDecoder("utf-8");
+    const raw = await Deno.readFile("static/words_alpha.txt");
+    const text = decoder.decode(raw);
     const dictionary = new Set(text.split("\n").map((word) => word.trim()));
 
     const permutations = generatePermutations(inputs, 4);
